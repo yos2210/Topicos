@@ -12,7 +12,8 @@ namespace Mensajeria.ConsoleApp
         private static void GenerarMensaje()
         {
             var mensaje = new LogicaPrincipal();
-            mensaje.GenerarMensaje();
+            mensaje.HagaLaMagia();
+            //mensaje.GenerarMensaje();
         }
     }
 }

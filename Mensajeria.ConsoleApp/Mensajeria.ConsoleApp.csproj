@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,7 +6,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NorthWnd.Model\**" />
+    <Compile Remove="Sakila.Model.BL\**" />
+    <Compile Remove="Sakila.Model\**" />
+    <EmbeddedResource Remove="NorthWnd.Model\**" />
+    <EmbeddedResource Remove="Sakila.Model.BL\**" />
+    <EmbeddedResource Remove="Sakila.Model\**" />
+    <None Remove="NorthWnd.Model\**" />
+    <None Remove="Sakila.Model.BL\**" />
+    <None Remove="Sakila.Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Mensajeria.BL\Mensajeria.BL.csproj" />
+    <ProjectReference Include="Sakila.Model.BL\Sakila.Model.BL.csproj" />
   </ItemGroup>
 
 </Project>
