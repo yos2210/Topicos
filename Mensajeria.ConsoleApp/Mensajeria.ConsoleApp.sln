@@ -14,10 +14,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthWnd.Model", "NorthWnd.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakila.Model", "Sakila.Model\Sakila.Model.csproj", "{479EB771-377A-4930-A9A1-8F70DCB77D42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakila.Model.BL", "Sakila.Model.BL\Sakila.Model.BL.csproj", "{64DCCD49-1C32-405B-8548-AD7D550C39C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakila.Model.BL", "Sakila.Model.BL\Sakila.Model.BL.csproj", "{64DCCD49-1C32-405B-8548-AD7D550C39C4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{479EB771-377A-4930-A9A1-8F70DCB77D42} = {479EB771-377A-4930-A9A1-8F70DCB77D42}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.AdventureWorks", "..\Api.AdventureWorks\Api.AdventureWorks.csproj", "{8E442802-DA61-42D0-945F-238D1F9EC4D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{64DCCD49-1C32-405B-8548-AD7D550C39C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64DCCD49-1C32-405B-8548-AD7D550C39C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64DCCD49-1C32-405B-8548-AD7D550C39C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E442802-DA61-42D0-945F-238D1F9EC4D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E442802-DA61-42D0-945F-238D1F9EC4D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E442802-DA61-42D0-945F-238D1F9EC4D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E442802-DA61-42D0-945F-238D1F9EC4D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
