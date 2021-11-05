@@ -1,6 +1,6 @@
 using System;
 
-namespace Api.AdventureWorks
+namespace API
 {
     public class WeatherForecast
     {

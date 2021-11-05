@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mensajeria.ConsoleApp\NorthWnd.Model\NorthWnd.Model.csproj" />
+    <ProjectReference Include="..\NorthWnd.Model\NorthWnd.Model.csproj" />
   </ItemGroup>
 
 </Project>

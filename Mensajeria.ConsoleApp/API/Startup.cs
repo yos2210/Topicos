@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api.AdventureWorks
+namespace API
 {
     public class Startup
     {
@@ -29,7 +29,7 @@ namespace Api.AdventureWorks
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api.AdventureWorks", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
         }
 
@@ -40,7 +40,7 @@ namespace Api.AdventureWorks
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api.AdventureWorks v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
 
             app.UseRouting();

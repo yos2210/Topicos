@@ -4,7 +4,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:53985",
+      "applicationUrl": "http://localhost:6903",
       "sslPort": 0
     }
   },
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Api.AdventureWorks": {
+    "API": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
