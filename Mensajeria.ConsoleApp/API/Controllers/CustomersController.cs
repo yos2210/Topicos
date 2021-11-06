@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NorthWnd.Model.MyModels;
 
-namespace API.Controllers
+namespace Topicos.Netcore.Api.AdventureWorks.Controllers
 {
     [Route("api/Customer")]
     [ApiController]
@@ -31,63 +31,63 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(int id)
         {
-            var customer = (await _context.Customers.Include(c => c.CustomerAddresses).ThenInclude(a => a.Address).Where(c => c.CustomerId == id).ToListAsync()).FirstOrDefault();
-            //var customer = await _context.Customers.FindAsync(id);
-           
+            var customerBD = (await _context.Customers.Include(c => c.CustomerAddresses).ThenInclude(a => a.Address).Where(c => c.CustomerId == id).ToListAsync()).FirstOrDefault();
+            //var customer = await _context.Customers.FindAsync (id);
+
+            if (customerBD == null)
+            {
+                return NotFound();
+            }
+            var customerResultante = AplanarCustomer(customerBD);
+
+            return customerResultante;
+        }
+
+        // GET: api/Customers/PagedQuery/?pageNumber=3?pageSize=15
+        [HttpGet("PagedQuery/")]
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomerPaged(int pageNumber, int pageSize)
+        {
+
+            var customer = await _context.Customers.OrderBy(c => c.LastName).
+                Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToListAsync(); 
+
             if (customer == null)
             {
                 return NotFound();
             }
-            var customerResultante = ExtraerCustomer(customer);
-
             return customer;
         }
 
-        // GET: api/Customers/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomerWithParameter(int id)
+
+        private Customer AplanarCustomer(Customer customerBD)
         {
-           var customer = (await _context.Customers.Include(c => c.CustomerAddresses).ThenInclude(a => a.Address).Where(c => c.CustomerId == id).ToListAsync()).FirstOrDefault();
-            //var customer = await _context.Customers.FindAsync(id);
-            //IEnumerable<Employee> result = Employees.Skip((pageNumber - 1) * pageSize).Take(pageSize);
-
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return customer;
-        }
-
-        private Customer ExtraerCustomer(Customer customerBD)
-        {
-            var customerExtraido = new Customer();
-            customerExtraido.CustomerId = customerBD.CustomerId;
-            customerExtraido.NameStyle = customerBD.NameStyle;
-            customerExtraido.Title = customerBD.Title;
-            customerExtraido.FirstName = customerBD.FirstName;
-            customerExtraido.MiddleName = customerBD.MiddleName;
-            customerExtraido.Suffix = customerBD.Suffix;
-            customerExtraido.CompanyName = customerBD.CompanyName;
-            customerExtraido.SalesPerson = customerBD.SalesPerson;
-            customerExtraido.EmailAddress = customerBD.EmailAddress;
-            customerExtraido.Phone = customerBD.Phone;
-            customerExtraido.LastName = customerBD.LastName;
-            customerExtraido.CustomerAddresses = new List<CustomerAddress>();
+            var elCustomerResultante = new Customer();
+            elCustomerResultante.CustomerId = customerBD.CustomerId;
+            elCustomerResultante.NameStyle = customerBD.NameStyle;
+            elCustomerResultante.Title = customerBD.Title;
+            elCustomerResultante.FirstName = customerBD.FirstName;
+            elCustomerResultante.MiddleName = customerBD.MiddleName;
+            elCustomerResultante.Suffix = customerBD.Suffix;
+            elCustomerResultante.CompanyName = customerBD.CompanyName;
+            elCustomerResultante.SalesPerson = customerBD.SalesPerson;
+            elCustomerResultante.EmailAddress = customerBD.EmailAddress;
+            elCustomerResultante.Phone = customerBD.Phone;
+            elCustomerResultante.LastName = customerBD.LastName;
+            elCustomerResultante.CustomerAddresses = new List<CustomerAddress>();
             foreach (var item in customerBD.CustomerAddresses)
             {
-                var customerAddress = new CustomerAddress();
-                customerAddress.AddressType = item.AddressType;
-                customerAddress.Address = new Address();
-                customerAddress.Address.AddressLine1 = item.Address.AddressLine1;
-                customerAddress.Address.AddressLine2 = item.Address.AddressLine2;
-                customerAddress.Address.City = item.Address.City;
-                customerAddress.Address.StateProvince = item.Address.StateProvince;
-                customerAddress.Address.CountryRegion = item.Address.CountryRegion;
-                customerAddress.Address.PostalCode = item.Address.PostalCode;
-                customerExtraido.CustomerAddresses.Add(customerAddress);
+                var elCustomerAddress = new CustomerAddress();
+                elCustomerAddress.AddressType = item.AddressType;
+                elCustomerAddress.Address = new Address();
+                elCustomerAddress.Address.AddressLine1 = item.Address.AddressLine1;
+                elCustomerAddress.Address.AddressLine2 = item.Address.AddressLine2;
+                elCustomerAddress.Address.City = item.Address.City;
+                elCustomerAddress.Address.StateProvince = item.Address.StateProvince;
+                elCustomerAddress.Address.CountryRegion = item.Address.CountryRegion;
+                elCustomerAddress.Address.PostalCode = item.Address.PostalCode;
+                elCustomerResultante.CustomerAddresses.Add(elCustomerAddress);
             }
-            return customerExtraido;
+            return elCustomerResultante;
         }
 
         // PUT: api/Customers/5
