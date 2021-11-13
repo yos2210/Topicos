@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace Topicos.Netcore.Api.AdventureWorks.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly AdventureWorksLT2019Context _context;
+        private readonly IMapper _mapper;
 
         public CustomersController()
         {
@@ -22,30 +24,41 @@ namespace Topicos.Netcore.Api.AdventureWorks.Controllers
 
         // GET: api/Customers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<DTOModels.DtoCustomer>>> GetCustomers(int pageSize = 5, int pageNumber = 5)
         {
-            return await _context.Customers.ToListAsync();
+            var customer = await _context.Customers.OrderBy(c => c.LastName).
+                Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToListAsync();
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            var customermapeado = _mapper.Map<List<DTOModels.DtoCustomer>>(customer);
+
+            return customermapeado;
         }
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<DTOModels.DtoCustomer>> GetCustomer(int id)
         {
-            var customerBD = (await _context.Customers.Include(c => c.CustomerAddresses).ThenInclude(a => a.Address).Where(c => c.CustomerId == id).ToListAsync()).FirstOrDefault();
-            //var customer = await _context.Customers.FindAsync (id);
+            var customer = (await _context.Customers.Include(c => c.CustomerAddresses)
+                            .ThenInclude(a => a.Address).Where(c => c.CustomerId == id)
+                            .ToListAsync()).FirstOrDefault();
 
-            if (customerBD == null)
+            if (customer == null)
             {
                 return NotFound();
             }
-            var customerResultante = AplanarCustomer(customerBD);
+            var customermapeado = _mapper.Map<DTOModels.DtoCustomer>(customer);
 
-            return customerResultante;
+            return customermapeado;
         }
 
-        // GET: api/Customers/PagedQuery/?pageNumber=3?pageSize=15
+        // GET: api/Customers/PagedQuery/?pageNumber=3?pageSize=5
         [HttpGet("PagedQuery/")]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomerPaged(int pageNumber, int pageSize)
+        public async Task<ActionResult<IEnumerable<DTOModels.DtoCustomer>>> GetCustomerPaged(int pageNumber, int pageSize)
         {
 
             var customer = await _context.Customers.OrderBy(c => c.LastName).
@@ -55,39 +68,10 @@ namespace Topicos.Netcore.Api.AdventureWorks.Controllers
             {
                 return NotFound();
             }
-            return customer;
-        }
 
+            var customermapeado = _mapper.Map< List<DTOModels.DtoCustomer>>(customer);
 
-        private Customer AplanarCustomer(Customer customerBD)
-        {
-            var elCustomerResultante = new Customer();
-            elCustomerResultante.CustomerId = customerBD.CustomerId;
-            elCustomerResultante.NameStyle = customerBD.NameStyle;
-            elCustomerResultante.Title = customerBD.Title;
-            elCustomerResultante.FirstName = customerBD.FirstName;
-            elCustomerResultante.MiddleName = customerBD.MiddleName;
-            elCustomerResultante.Suffix = customerBD.Suffix;
-            elCustomerResultante.CompanyName = customerBD.CompanyName;
-            elCustomerResultante.SalesPerson = customerBD.SalesPerson;
-            elCustomerResultante.EmailAddress = customerBD.EmailAddress;
-            elCustomerResultante.Phone = customerBD.Phone;
-            elCustomerResultante.LastName = customerBD.LastName;
-            elCustomerResultante.CustomerAddresses = new List<CustomerAddress>();
-            foreach (var item in customerBD.CustomerAddresses)
-            {
-                var elCustomerAddress = new CustomerAddress();
-                elCustomerAddress.AddressType = item.AddressType;
-                elCustomerAddress.Address = new Address();
-                elCustomerAddress.Address.AddressLine1 = item.Address.AddressLine1;
-                elCustomerAddress.Address.AddressLine2 = item.Address.AddressLine2;
-                elCustomerAddress.Address.City = item.Address.City;
-                elCustomerAddress.Address.StateProvince = item.Address.StateProvince;
-                elCustomerAddress.Address.CountryRegion = item.Address.CountryRegion;
-                elCustomerAddress.Address.PostalCode = item.Address.PostalCode;
-                elCustomerResultante.CustomerAddresses.Add(elCustomerAddress);
-            }
-            return elCustomerResultante;
+            return customermapeado;
         }
 
         // PUT: api/Customers/5

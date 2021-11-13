@@ -4,7 +4,13 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+	<ItemGroup>
+		<Compile Remove="DTOModels\DtoAddress.cs" />
+		<Compile Remove="Profiles\DtoAddressProfile.cs" />
+	</ItemGroup>
+
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,6 +26,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NorthWnd.Model\NorthWnd.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOModels\" />
+    <Folder Include="Profiles\" />
   </ItemGroup>
 
 </Project>
