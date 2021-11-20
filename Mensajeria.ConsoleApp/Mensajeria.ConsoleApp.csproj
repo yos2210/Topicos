@@ -6,12 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="API\**" />
     <Compile Remove="NorthWnd.Model\**" />
     <Compile Remove="Sakila.Model.BL\**" />
     <Compile Remove="Sakila.Model\**" />
+    <EmbeddedResource Remove="API\**" />
     <EmbeddedResource Remove="NorthWnd.Model\**" />
     <EmbeddedResource Remove="Sakila.Model.BL\**" />
     <EmbeddedResource Remove="Sakila.Model\**" />
+    <None Remove="API\**" />
     <None Remove="NorthWnd.Model\**" />
     <None Remove="Sakila.Model.BL\**" />
     <None Remove="Sakila.Model\**" />

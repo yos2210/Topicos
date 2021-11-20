@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Topicos.Netcore.Api.AdventureWorks.DTOModels
+namespace Mensajeria.ConsoleApp.API.DTOModels
 {
     public partial class DtoCustomer
     {

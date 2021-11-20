@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NorthWnd.Model.MyModels;
 
-namespace Topicos.Netcore.Api.AdventureWorks.Controllers
+namespace Mensajeria.ConsoleApp.API.Controllers
 {
     [Route("api/Customer")]
     [ApiController]

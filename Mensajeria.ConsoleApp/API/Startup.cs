@@ -31,6 +31,7 @@ namespace API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
+            services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(options =>
             {
                 options.CustomSchemaIds(type => type.ToString());

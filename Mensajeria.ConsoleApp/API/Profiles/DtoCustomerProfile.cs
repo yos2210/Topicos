@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Topicos.Netcore.Api.AdventureWorks.Profiles
+namespace Mensajeria.ConsoleApp.API.Profiles
 {
     public class DtoCustomerProfile : Profile
     {
