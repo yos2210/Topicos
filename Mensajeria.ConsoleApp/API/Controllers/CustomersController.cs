@@ -15,10 +15,11 @@ namespace Mensajeria.ConsoleApp.API.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly AdventureWorksLT2019Context _context;
-        private readonly IMapper _mapper;
+        private readonly IMapper _mapp;
 
-        public CustomersController()
+        public CustomersController(IMapper mapper)
         {
+            _mapp = mapper;
             _context = new AdventureWorksLT2019Context();
         }
 
@@ -34,7 +35,7 @@ namespace Mensajeria.ConsoleApp.API.Controllers
                 return NotFound();
             }
 
-            var customermapeado = _mapper.Map<List<DTOModels.DtoCustomer>>(customer);
+            var customermapeado = _mapp.Map<List<DTOModels.DtoCustomer>>(customer);
 
             return customermapeado;
         }
@@ -51,7 +52,7 @@ namespace Mensajeria.ConsoleApp.API.Controllers
             {
                 return NotFound();
             }
-            var customermapeado = _mapper.Map<DTOModels.DtoCustomer>(customer);
+            var customermapeado = _mapp.Map<DTOModels.DtoCustomer>(customer);
 
             return customermapeado;
         }
@@ -69,7 +70,7 @@ namespace Mensajeria.ConsoleApp.API.Controllers
                 return NotFound();
             }
 
-            var customermapeado = _mapper.Map< List<DTOModels.DtoCustomer>>(customer);
+            var customermapeado = _mapp.Map< List<DTOModels.DtoCustomer>>(customer);
 
             return customermapeado;
         }
